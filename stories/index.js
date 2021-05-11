@@ -24,11 +24,13 @@ storiesOf("Button", module)
 		</Button>
 	));
 
-export default function DayListItem(props) {
-	return (
-		<li>
-			<h2 className='text--regular'>Day Name</h2>
-			<h3 className='text--light'>X spots remaining</h3>
-		</li>
-	);
-}
+storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
+	.addParameters({
+		backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
+	}) // Provides the default background color for our component
+	.add("Unselected", () => <DayListItem name='Monday' spots={4} />) // To define our stories, we call add() once for each of our test states to generate a story
+	.add("Selected", () => <DayListItem name='Monday' spots={5} selected />)
+	.add("Full", () => <DayListItem name='Monday' spots={0} />)
+	.add("Clickable", () => (
+		<DayListItem name='Tuesday' setDay={action("setDay")} spots={5} /> // action() allows us to create a callback that appears in the actions panel when clicked
+	));
