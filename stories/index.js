@@ -10,14 +10,14 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
-import Appointment from "components/Appointments/Index.js";
-import Header from "components/Appointments/Header.js";
-import Empty from "components/Appointments/Empty.js";
-import Show from "components/Appointments/Show.js";
-import Confirm from "components/Appointments/Confirm.js";
-import Status from "components/Appointments/Status.js";
-import Error from "components/Appointments/Error.js";
-import Form from "components/Appointments/Form.js";
+import Appointment from "components/Appointment/index.js";
+import Header from "components/Appointment/Header.js";
+import Empty from "components/Appointment/Empty.js";
+import Show from "components/Appointment/Show.js";
+import Confirm from "components/Appointment/Confirm.js";
+import Status from "components/Appointment/Status.js";
+import Error from "components/Appointment/Error.js";
+import Form from "components/Appointment/Form.js";
 
 //BUTTON
 storiesOf("Button", module)
@@ -145,7 +145,9 @@ storiesOf("Appointment", module)
 	.addParameters({
 		backgrounds: [{ name: "white", value: "#fff", default: true }],
 	})
-	.add("Appointment", () => <Appointment />)
+	.add("Appointment", () => (
+		<Appointment id='last' time='1pm' interview='Iterview' />
+	))
 	.add("Appointment with Time", () => <Appointment time='12pm' />)
 	.add("Header", () => <Header time='12pm' />)
 	.add("Empty", () => <Empty onAdd={action("onAdd")} />)
@@ -186,4 +188,20 @@ storiesOf("Appointment", module)
 			onSave={action("onSave")}
 			onCancel={action("onCancel")}
 		/>
+	))
+	.add("Appointment Empty", () => (
+		<>
+			<Appointment id={1} time='12pm' />
+			<Appointment id='last' time='1pm' />
+		</>
+	))
+	.add("Appointment Booked", () => (
+		<>
+			<Appointment
+				id={1}
+				time='12pm'
+				interview={{ student: "Lydia Miller-Jones", interviewer }}
+			/>
+			<Appointment id='last' time='1pm' />
+		</>
 	));
