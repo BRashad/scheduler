@@ -23,3 +23,8 @@ export function getInterview(state, interview) {
 
 	return { ...interview, interviewer };
 }
+
+export function getInterviewersForDay(state, day) {
+	const interviewersArray = state.days.filter((days) => days.name === day);
+	return interviewersArray;
+}
