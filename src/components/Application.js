@@ -31,7 +31,7 @@ export default function Application(props) {
 				...prev,
 				days: all[0].data,
 				appointments: all[1].data,
-				interviewers: all[2].data,
+				interviewers: Object.values(all[2].data),
 			}));
 		});
 	}, []);
@@ -41,7 +41,16 @@ export default function Application(props) {
 		const interview = getInterview(state, appointment.interview);
 
 		const bookInterview = (id, interview) => {
-			console.log(id, interview);
+			const appointment = {
+				...state.appointments[id],
+				interview: { ...interview },
+			};
+			const appointments = {
+				...state.appointments,
+				[id]: appointment,
+			};
+			setState({ ...state, appointments });
+			return;
 		};
 
 		return (
@@ -51,6 +60,7 @@ export default function Application(props) {
 				time={appointment.time}
 				interview={interview}
 				bookInterview={bookInterview}
+				interviewers={state.interviewers}
 			/>
 		);
 	});
