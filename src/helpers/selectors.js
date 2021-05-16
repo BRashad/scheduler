@@ -38,7 +38,7 @@ export function getInterviewersForDay(state, day) {
 	if (!interviewersArray.length) {
 		return [];
 	}
-	//console.log("	INTER DAYS", interviewersArray[0].interviewers);
+
 	const dayInterviewers = interviewersArray[0].interviewers.map((id) => {
 		return state.interviewers[id];
 	});
