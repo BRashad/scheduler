@@ -31,7 +31,7 @@ export default function Application(props) {
 				...prev,
 				days: all[0].data,
 				appointments: all[1].data,
-				interviewers: Object.values(all[2].data),
+				interviewers: all[2].data,
 			}));
 		});
 	}, [state]);
@@ -49,9 +49,26 @@ export default function Application(props) {
 				...state.appointments,
 				[id]: appointment,
 			};
-			console.log("INTERVIEW", interview);
+
 			return axios
 				.put(`http://localhost:8001/api/appointments/${id}`, { interview })
+				.then((res) => {
+					setState({ ...state, appointments });
+				});
+		};
+
+		const cancelInterview = (id) => {
+			const appointment = {
+				...state.appointments[id],
+				interview: null,
+			};
+			console.log("Appointment", Appointment);
+			const appointments = {
+				...state.appointments,
+				[id]: appointment,
+			};
+			return axios
+				.delete(`http://localhost:8001/api/appointments/${id}`)
 				.then((res) => {
 					setState({ ...state, appointments });
 				});
@@ -64,7 +81,8 @@ export default function Application(props) {
 				time={appointment.time}
 				interview={interview}
 				bookInterview={bookInterview}
-				interviewers={state.interviewers}
+				cancelInterview={cancelInterview}
+				interviewers={getInterviewersForDay(state, state.day)}
 			/>
 		);
 	});
