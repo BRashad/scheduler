@@ -34,7 +34,7 @@ export default function Application(props) {
 				interviewers: Object.values(all[2].data),
 			}));
 		});
-	}, []);
+	}, [state]);
 	const dailyAppointments = getAppointmentsForDay(state, state.day);
 
 	const schedule = dailyAppointments.map((appointment) => {
@@ -49,8 +49,12 @@ export default function Application(props) {
 				...state.appointments,
 				[id]: appointment,
 			};
-			setState({ ...state, appointments });
-			return;
+			console.log("INTERVIEW", interview);
+			return axios
+				.put(`http://localhost:8001/api/appointments/${id}`, { interview })
+				.then((res) => {
+					setState({ ...state, appointments });
+				});
 		};
 
 		return (
