@@ -6,6 +6,7 @@ import Empty from "components/Appointment/Empty.js";
 import Show from "components/Appointment/Show.js";
 import Confirm from "components/Appointment/Confirm.js";
 import Form from "components/Appointment/Form.js";
+import Error from "components/Appointment/Error.js";
 import useVisualMode from "hooks/useVisualMode.js";
 import Application from "components/Application.js";
 import Status from "./Status";
@@ -18,6 +19,8 @@ export default function Appointment(props) {
 	const DELETING = "DELETING";
 	const CONFIRM = "CONFIRM";
 	const EDITING = "EDIT";
+	const ERROR_SAVE = "ERROR_SAVE";
+	const ERROR_DELETE = "ERROR_DELETE";
 	const { mode, transition, back } = useVisualMode(
 		props.interview ? SHOW : EMPTY
 	);
@@ -39,6 +42,17 @@ export default function Appointment(props) {
 	return (
 		<article className='appointment'>
 			<Header time={props.time} />
+			{mode === SHOW && (
+				<Show
+					student={props.interview.student}
+					interviewer={props.interview.interviewer}
+					onEdit={() => transition(EDITING)}
+					onDelete={() => transition(CONFIRM)}
+				/>
+			)}
+			{mode === CREATE && (
+				<Form interviewers={props.interviewers} onSave={save} onCancel={back} />
+			)}
 			{mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 			{mode === SAVING && <Status mode={mode} />}
 			{mode === CONFIRM && <Confirm onCancel={back} onConfirm={deleting} />}
@@ -52,16 +66,17 @@ export default function Appointment(props) {
 					onSave={save}
 				/>
 			)}
-			{mode === SHOW && (
-				<Show
-					student={props.interview.student}
-					interviewer={props.interview.interviewer}
-					onEdit={() => transition(EDITING)}
-					onDelete={() => transition(CONFIRM)}
+			{mode === ERROR_DELETE && (
+				<Error
+					message='Could not delete appointment'
+					onClose={() => transition(SHOW)}
 				/>
 			)}
-			{mode === CREATE && (
-				<Form interviewers={props.interviewers} onSave={save} onCancel={back} />
+			{mode === ERROR_SAVE && (
+				<Error
+					message='Could not save appointment'
+					onClose={() => transition(SHOW)}
+				/>
 			)}
 		</article>
 	);
