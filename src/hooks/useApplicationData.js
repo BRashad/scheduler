@@ -18,6 +18,7 @@ export default function useApplicationData() {
 		appointments: {},
 		interviewers: {},
 	});
+	console.log("STATE", state);
 	const setDay = (day) => setState({ ...state, day });
 	useEffect(() => {
 		Promise.all([
@@ -34,6 +35,20 @@ export default function useApplicationData() {
 		});
 	}, []);
 
+	const updateSpots = (appointment, amount) => {
+		let newDays = [];
+		for (const day of state.days) {
+			let newDay = day;
+			for (const appointmentId of day.appointments) {
+				if (appointmentId === appointment) {
+					newDay = { ...newDay, spots: (newDay.spots += amount) };
+				}
+			}
+			newDays.push(newDay);
+		}
+		return newDays;
+	};
+
 	const bookInterview = (id, interview) => {
 		const appointment = {
 			...state.appointments[id],
@@ -46,8 +61,13 @@ export default function useApplicationData() {
 
 		return axios
 			.put(`http://localhost:8001/api/appointments/${id}`, { interview })
-			.then((res) => {
-				setState({ ...state, appointments });
+			.then(async (res) => {
+				const newDays = updateSpots(id, -1);
+				setState({
+					...state,
+					appointments,
+					days: newDays,
+				});
 			});
 	};
 
@@ -64,7 +84,8 @@ export default function useApplicationData() {
 		return axios
 			.delete(`http://localhost:8001/api/appointments/${id}`)
 			.then((res) => {
-				setState({ ...state, appointments });
+				const newDays = updateSpots(id, 1);
+				setState({ ...state, appointments, days: newDays });
 			});
 	};
 
