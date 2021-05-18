@@ -17,12 +17,12 @@ export default function Appointment(props) {
 	const SAVING = "SAVING";
 	const DELETING = "DELETING";
 	const CONFIRM = "CONFIRM";
+	const EDITING = "EDIT";
 	const { mode, transition, back } = useVisualMode(
 		props.interview ? SHOW : EMPTY
 	);
 
 	function save(name, interviewer) {
-		console.log("INSIDE save");
 		const interview = {
 			student: name,
 			interviewer,
@@ -43,11 +43,20 @@ export default function Appointment(props) {
 			{mode === SAVING && <Status mode={mode} />}
 			{mode === CONFIRM && <Confirm onCancel={back} onConfirm={deleting} />}
 			{mode === DELETING && <Status mode={mode} />}
+			{mode === EDITING && (
+				<Form
+					interviewers={props.interviewers}
+					name={props.interview.student}
+					interviewer={props.interview.interviewer}
+					onCancel={() => back()}
+					onSave={save}
+				/>
+			)}
 			{mode === SHOW && (
 				<Show
 					student={props.interview.student}
 					interviewer={props.interview.interviewer}
-					onEdit={"onEdit"}
+					onEdit={() => transition(EDITING)}
 					onDelete={() => transition(CONFIRM)}
 				/>
 			)}

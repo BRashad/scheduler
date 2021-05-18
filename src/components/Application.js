@@ -34,7 +34,7 @@ export default function Application(props) {
 				interviewers: all[2].data,
 			}));
 		});
-	}, [state]);
+	}, []);
 	const dailyAppointments = getAppointmentsForDay(state, state.day);
 
 	const schedule = dailyAppointments.map((appointment) => {
@@ -62,7 +62,7 @@ export default function Application(props) {
 				...state.appointments[id],
 				interview: null,
 			};
-			console.log("Appointment", Appointment);
+
 			const appointments = {
 				...state.appointments,
 				[id]: appointment,
