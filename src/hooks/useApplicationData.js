@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 import "components/Application.scss";
-import DayList from "components/DayList.js";
-import Appointment from "components/Appointment";
+// import DayList from "components/DayList.js";
+// import Appointment from "components/Appointment";
 import axios from "axios";
-import {
-	getAppointmentsForDay,
-	getInterview,
-	getInterviewersForDay,
-} from "helpers/selectors";
-import InterviewerListItem from "components/InterviewerListItem";
+// import {
+// 	getAppointmentsForDay,
+// 	getInterview,
+// 	getInterviewersForDay,
+// } from "helpers/selectors";
+// import InterviewerListItem from "components/InterviewerListItem";
 
 export default function useApplicationData() {
 	const [state, setState] = useState({
@@ -70,56 +70,3 @@ export default function useApplicationData() {
 
 	return { state, setDay, bookInterview, cancelInterview };
 }
-
-// const schedule = dailyAppointments.map((appointment) => {
-// 	const interview = getInterview(state, appointment.interview);
-
-// export default function Application(props) {
-//
-
-// 	const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-//
-
-// 		return (
-// 			<Appointment
-// 				key={appointment.id}
-// 				id={appointment.id}
-// 				time={appointment.time}
-// 				interview={interview}
-// 				bookInterview={bookInterview}
-// 				cancelInterview={cancelInterview}
-// 				interviewers={getInterviewersForDay(state, state.day)}
-// 			/>
-// 		);
-// 	});
-
-// 	return (
-// 		<main className='layout'>
-// 			<section className='sidebar'>
-// 				{
-// 					<div>
-// 						<img
-// 							className='sidebar--centered'
-// 							src='images/logo.png'
-// 							alt='Interview Scheduler'
-// 						/>
-// 						<hr className='sidebar__separator sidebar--centered' />
-// 						<nav className='sidebar__menu'>
-// 							<DayList days={state.days} day={state.day} setDay={setDay} />
-// 						</nav>
-// 						<img
-// 							className='sidebar__lhl sidebar--centered'
-// 							src='images/lhl.png'
-// 							alt='Lighthouse Labs'
-// 						/>
-// 					</div>
-// 				}
-// 			</section>
-// 			<section className='schedule'>
-// 				{schedule}
-// 				{<Appointment key='last' time='5pm' />}
-// 			</section>
-// 		</main>
-// 	);
-// }
