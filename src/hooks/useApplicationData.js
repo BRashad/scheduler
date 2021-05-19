@@ -18,7 +18,7 @@ export default function useApplicationData() {
 		appointments: {},
 		interviewers: {},
 	});
-	console.log("STATE", state);
+
 	const setDay = (day) => setState({ ...state, day });
 	useEffect(() => {
 		Promise.all([

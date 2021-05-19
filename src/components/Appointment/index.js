@@ -30,6 +30,9 @@ export default function Appointment(props) {
 			student: name,
 			interviewer,
 		};
+		if (name === "") {
+			return "Student name cannot be blank";
+		}
 		transition(SAVING);
 		props
 			.bookInterview(props.id, interview)
