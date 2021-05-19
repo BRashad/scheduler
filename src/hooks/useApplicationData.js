@@ -62,12 +62,16 @@ export default function useApplicationData() {
 		return axios
 			.put(`http://localhost:8001/api/appointments/${id}`, { interview })
 			.then(async (res) => {
-				const newDays = updateSpots(id, -1);
-				setState({
-					...state,
-					appointments,
-					days: newDays,
-				});
+				if (state.appointments[id].interview !== null) {
+					setState({ ...state, appointments });
+				} else {
+					const newDays = updateSpots(id, -1);
+					setState({
+						...state,
+						appointments,
+						days: newDays,
+					});
+				}
 			});
 	};
 

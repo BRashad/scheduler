@@ -1,35 +1,5 @@
 import { get } from "request";
 
-export default {
-	get: jest.fn((url) => {
-		if (url === "/api/days") {
-			return Promise.resolve({
-				status: 200,
-				statusText: "OK",
-				data: fixtures.days,
-			});
-		}
-
-		if (url === "/api/appointments") {
-			/* Resolve appointments data */
-			return Promise.resolve({
-				status: 200,
-				statusText: "OK",
-				data: fixtures.appointments,
-			});
-		}
-
-		if (url === "/api/interviewers") {
-			/* Resolve interviewers data */
-			return Promise.resolve({
-				status: 200,
-				statusText: "OK",
-				data: fixtures.interviewers,
-			});
-		}
-	}),
-};
-
 const fixtures = {
 	days: [
 		{
@@ -83,4 +53,61 @@ const fixtures = {
 			avatar: "https://i.imgur.com/FK8V841.jpg",
 		},
 	},
+};
+
+export default {
+	get: jest.fn((url) => {
+		if (url === "/api/days") {
+			return Promise.resolve({
+				status: 200,
+				statusText: "OK",
+				data: fixtures.days,
+			});
+		}
+
+		if (url === "/api/appointments") {
+			/* Resolve appointments data */
+			return Promise.resolve({
+				status: 200,
+				statusText: "OK",
+				data: fixtures.appointments,
+			});
+		}
+
+		if (url === "/api/interviewers") {
+			/* Resolve interviewers data */
+			return Promise.resolve({
+				status: 200,
+				statusText: "OK",
+				data: fixtures.interviewers,
+			});
+		}
+	}),
+	put: jest.fn((url) => {
+		if (url === "/api/days") {
+			return Promise.resolve({
+				status: 204,
+				statusText: "No content",
+				data: fixtures.days,
+			});
+		}
+
+		if (url === "/api/appointments") {
+			/* Resolve appointments data */
+			return Promise.resolve({
+				status: 204,
+				statusText: "No content",
+				data: fixtures.appointments,
+			});
+		}
+
+		if (url === "/api/interviewers") {
+			/* Resolve interviewers data */
+			return Promise.resolve({
+				status: 204,
+				statusText: "No content",
+				data: fixtures.interviewers,
+			});
+		}
+	}),
 };
