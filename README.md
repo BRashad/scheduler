@@ -49,7 +49,7 @@ npm run storybook
 
 ## Scheduler application images
 
-![Main view](/images/logo.png)
-![Adding appointment](/images/logo.png)
-![Deleting appointment](/images/logo.png)
-![Error screen](/images/logo.png)
+![Main view](https://github.com/BRashad/scheduler/blob/master/public/images/Main%20view.png)
+![Adding appointment](https://github.com/BRashad/scheduler/blob/master/public/images/adding%20student%20n%22%20selecting%20interveiwer.png)
+![Deleting appointment](https://github.com/BRashad/scheduler/blob/master/public/images/delete%20appointment.png)
+![Error screen](https://github.com/BRashad/scheduler/blob/master/public/images/error%20screen.png)
