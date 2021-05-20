@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 import {
 	render,
@@ -111,5 +112,42 @@ describe("Application", () => {
 		await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
 		debug();
+	});
+
+	it("shows the save error when failing to save an appointment", async () => {
+		axios.put.mockRejectedValueOnce();
+		const { container } = render(<Application />);
+		await waitForElement(() => getByText(container, "Archie Cohen"));
+
+		const appointment = getAllByTestId(container, "appointment").find(
+			(appointment) => queryByText(appointment, "Archie Cohen")
+		);
+
+		fireEvent.click(queryByAltText(appointment, "Edit"));
+		fireEvent.click(getByText(appointment, "Save"));
+		await waitForElement(() => getByText(appointment, "SAVING"));
+
+		await waitForElement(() => getByText(appointment, "Error"));
+	});
+
+	it("shows the delete error when failing to delete an existing appointment", async () => {
+		axios.delete.mockRejectedValueOnce();
+		const { container } = render(<Application />);
+		await waitForElement(() => getByText(container, "Archie Cohen"));
+
+		const appointment = getAllByTestId(container, "appointment").find(
+			(appointment) => queryByText(appointment, "Archie Cohen")
+		);
+
+		fireEvent.click(queryByAltText(appointment, "Delete"));
+
+		// // 5. Click the "Confirm" button on the confirmation.
+
+		await waitForElement(() =>
+			getByText(appointment, "Delete the appointment?")
+		);
+		fireEvent.click(getByText(appointment, "Confirm"));
+
+		await waitForElement(() => getByText(appointment, "Error"));
 	});
 });
