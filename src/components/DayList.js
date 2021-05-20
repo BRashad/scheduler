@@ -18,5 +18,4 @@ export default function DayList(props) {
 		return null;
 	}
 
-	// return <ul>{dayItem}</ul>;
 }

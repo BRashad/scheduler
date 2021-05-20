@@ -1,5 +1,4 @@
 export function getAppointmentsForDay(state, day) {
-	console.log("state.days", state.days);
 	if (!state.days) {
 		return [];
 	}

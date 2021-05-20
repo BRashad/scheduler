@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import "components/Application.scss";
-// import DayList from "components/DayList.js";
-// import Appointment from "components/Appointment";
+
 import axios from "axios";
-// import {
-// 	getAppointmentsForDay,
-// 	getInterview,
-// 	getInterviewersForDay,
-// } from "helpers/selectors";
-// import InterviewerListItem from "components/InterviewerListItem";
 
 export default function useApplicationData() {
 	const [state, setState] = useState({
