@@ -1,5 +1,3 @@
-import { get } from "request";
-
 const fixtures = {
 	days: [
 		{
@@ -56,8 +54,9 @@ const fixtures = {
 };
 
 export default {
+	defaults: { baseURL: "http://localhost:8001" },
 	get: jest.fn((url) => {
-		if (url === "/api/days") {
+		if (url === "http://localhost:8001/api/days") {
 			return Promise.resolve({
 				status: 200,
 				statusText: "OK",
@@ -65,7 +64,7 @@ export default {
 			});
 		}
 
-		if (url === "/api/appointments") {
+		if (url === "http://localhost:8001/api/appointments") {
 			/* Resolve appointments data */
 			return Promise.resolve({
 				status: 200,
@@ -74,7 +73,7 @@ export default {
 			});
 		}
 
-		if (url === "/api/interviewers") {
+		if (url === "http://localhost:8001/api/interviewers") {
 			/* Resolve interviewers data */
 			return Promise.resolve({
 				status: 200,
@@ -84,7 +83,7 @@ export default {
 		}
 	}),
 	put: jest.fn((url) => {
-		if (url === "/api/days") {
+		if (url.includes("http://localhost:8001/api/days")) {
 			return Promise.resolve({
 				status: 204,
 				statusText: "No content",
@@ -92,7 +91,7 @@ export default {
 			});
 		}
 
-		if (url === "/api/appointments") {
+		if (url.includes("http://localhost:8001/api/appointments")) {
 			/* Resolve appointments data */
 			return Promise.resolve({
 				status: 204,
@@ -101,7 +100,7 @@ export default {
 			});
 		}
 
-		if (url === "/api/interviewers") {
+		if (url.includes("http://localhost:8001/api/interviewers")) {
 			/* Resolve interviewers data */
 			return Promise.resolve({
 				status: 204,
