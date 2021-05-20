@@ -24,7 +24,11 @@
   }
 
   &__lhl {
+    position: relative;
     margin-top: 2rem;
+    bottom: -60%;
+    left: 43%;
+
   }
 }
 
