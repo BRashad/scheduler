@@ -109,4 +109,13 @@ export default {
 			});
 		}
 	}),
+	delete: jest.fn((url) => {
+		if (url.includes("http://localhost:8001/api/appointments")) {
+			/* Resolve appointments data */
+			return Promise.resolve({
+				status: 204,
+				statusText: "No content",
+			});
+		}
+	}),
 };
