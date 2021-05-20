@@ -89,5 +89,27 @@ describe("Application", () => {
 
 		debug();
 	});
-	it("loads data, edits an interview and keeps the spots remaining for Monday the same", () => {});
+	it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+		const { container, debug } = render(<Application />);
+
+		//We want to start by finding an existing interview.
+		await waitForElement(() => getByText(container, "Archie Cohen"));
+
+		const appointment = getAllByTestId(container, "appointment").find(
+			(appointment) => queryByText(appointment, "Archie Cohen")
+		);
+		//With the existing interview we want to find the edit button.
+		fireEvent.click(queryByAltText(appointment, "Edit"));
+		//We change the name and save the interview.
+		fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+			target: { value: "Lydia Miller-Jones" },
+		});
+		fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+		fireEvent.click(getByText(appointment, "Save"));
+		expect(getByText(appointment, "SAVING")).toBeInTheDocument();
+		await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+
+		debug();
+	});
 });
