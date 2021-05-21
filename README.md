@@ -1,4 +1,4 @@
-# Testing
+
 # Interview Scheduler
 
 ## Setup
