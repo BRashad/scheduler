@@ -23,7 +23,7 @@ npm run storybook
 ```
 
 
-## DevDependencies
+## DevDependencies 37
 
     "@storybook/addon-actions": "^5.0.10",
     "@storybook/addon-backgrounds": "^5.0.10",
